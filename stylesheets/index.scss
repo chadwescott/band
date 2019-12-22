@@ -1,0 +1,113 @@
+@import "layout";
+@import "formatting";
+
+$border: 2px solid rgba(0, 0, 0, 0.8);
+
+@mixin box-shadow($x: 0, $y: 0) {
+  box-shadow: $x $y 0.4em 0.2em rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: "Pacifico", "cursive";
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  grid-template-rows: 4em calc(100vh - 4em);
+  grid-template-areas: "header header" "sidebar content";
+
+  & > *:first-child {
+    border-top: $border;
+    @include box-shadow();
+  }
+
+  & > * {
+    border-bottom: $border;
+  }
+}
+
+.header {
+  position: relative;
+  background-color: rgba(255, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4em;
+  grid-area: header;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  &__title {
+    position: relative;
+    font-family: "Pacifico", "cursive";
+    color: #eee;
+    display: inline-block;
+    font-size: 2em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    z-index: 2;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-image: url("../images/music-staff.svg");
+      background-size: cover;
+      left: -5em;
+      right: calc(100% + 0.2em);
+      top: 0.2em;
+      bottom: 0;
+      transform: scaleX(-1);
+      z-index: 2;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      background-image: url("../images/music-staff.svg");
+      background-size: cover;
+      left: calc(100% + 0.2em);
+      right: -5em;
+      top: 0.2em;
+      bottom: 0;
+      z-index: 2;
+    }
+  }
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-right: $border;
+  @include box-shadow(0);
+  color: white;
+
+  &--header {
+    font-size: 1.8em;
+  }
+
+  &--link {
+    color: white;
+  }
+}
+
+.content {
+  grid-area: content;
+  background-color: rgba(0, 0, 0, 0.25);
+
+  &--image {
+    height: 300px;
+  }
+}
