@@ -1,5 +1,36 @@
+$border: 2px solid rgba(0, 0, 0, 0.8);
+
+@mixin box-shadow($x: 0, $y: 0) {
+  box-shadow: $x $y 0.4em 0.2em rgba(0, 0, 0, 0.2);
+}
+
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0 2em 1em 2em;
+
+  &:first-child {
+    column-span: all;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  grid-template-rows: 4em calc(100% - 4em);
+  grid-template-areas: "header header" "sidebar content";
+  min-height: 100vh;
+
+  & > *:first-child {
+    border-top: $border;
+    @include box-shadow();
+  }
+
+  & > * {
+    border-bottom: $border;
+  }
 }
